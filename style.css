@@ -1,12 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap");
 
 :root {
-  --accent-color: #7b2cbf;
-  --accent-glow: #9d4edd;
-  --bg-dark: #030105;
+  --accent-color: #87CEEB;
+  --accent-glow: #aae5fc;
+  --bg-dark: #04080f;
   --text-primary: #ffffff;
-  --text-secondary: #8a8a8a;
-  --glow-rgba: rgba(123, 44, 191, 0.4);
+  --text-secondary: #94a3b8;
+  --glow-rgba: rgba(135, 206, 235, 0.35);
 }
 
 * {
@@ -23,7 +23,7 @@ body {
   min-height: 100vh;
 }
 
-/* --- BACKGROUND PHYSICS --- */
+/* --- BACKGROUND CODE PARTICLES --- */
 .particles-container {
   position: fixed;
   top: 0;
@@ -34,30 +34,21 @@ body {
   pointer-events: none;
   overflow: hidden;
 }
-.shape {
+.code-particle {
   position: absolute;
-  border: 1.5px solid var(--accent-color);
-  opacity: 0.25;
-  filter: drop-shadow(0 0 8px var(--accent-glow));
-  z-index: 2;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-color);
+  opacity: 0.22;
+  text-shadow: 0 0 12px var(--accent-glow);
+  z-index: 1;
   will-change: transform;
   top: 0;
   left: 0;
-}
-.shape.circle {
-  border-radius: 50%;
-}
-.shape.square {
-  border-radius: 2px;
-}
-.shape.triangle {
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 17px solid var(--accent-color);
-  border-top: none;
-  background: none;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 /* --- NAVIGATION --- */
@@ -99,8 +90,8 @@ body {
 .nav-btn:hover,
 .nav-btn.active {
   color: #fff;
-  background: rgba(138, 43, 226, 0.2);
-  border: 1px solid rgba(138, 43, 226, 0.3);
+  background: rgba(135, 206, 235, 0.15);
+  border: 1px solid rgba(135, 206, 235, 0.35);
 }
 
 /* --- GLOBAL LAYOUT --- */
@@ -342,7 +333,7 @@ body {
   width: 350px; /* Or your preferred width */
   max-width: 90vw;
   border-radius: 35px;
-  background: #08040a;
+  background: #050a12;
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 60px -15px var(--glow-rgba);
   padding-bottom: 35px;

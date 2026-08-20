@@ -1,6 +1,14 @@
 const container = document.getElementById('particle-container');
-const shapes = ['circle', 'square', 'triangle'];
-const shapeCount = 25;
+const codeKeywords = [
+    'printf()', 'scanf()', 'defer', 'goroutine', 'std::cout', 'std::cin',
+    'malloc()', 'free()', '#include <stdio.h>', 'package main', 'fmt.Println()',
+    'def', 'lambda', 'async', 'await', 'struct', 'nullptr', 'chan<-',
+    'make()', 'func', 'import', 'return 0;', 'sizeof()', 'typedef',
+    'std::vector', 'auto', 'constexpr', 'range', 'panic()', 'recover()',
+    'interface{}', 'go func()', 'yield', '__init__', 'NULL', 'int* ptr',
+    'select {}', 'fmt.Sprintf()', 'std::string', 'len()'
+];
+const keywordCount = 30;
 const mouse = { x: -2000, y: -2000 };
 const particleArray = [];
 
@@ -12,26 +20,37 @@ document.addEventListener('mousemove', (e) => {
 class Particle {
     constructor() {
         this.el = document.createElement('div');
-        const type = shapes[Math.floor(Math.random() * shapes.length)];
-        const size = Math.random() * 20 + 10;
-        this.el.className = `shape ${type}`;
-        if(type !== 'triangle') {
-            this.el.style.width = `${size}px`;
-            this.el.style.height = `${size}px`;
+        const keyword = codeKeywords[Math.floor(Math.random() * codeKeywords.length)];
+        const fontSize = Math.floor(Math.random() * 6) + 12; // 12px to 17px
+        const opacity = (Math.random() * 0.18 + 0.16).toFixed(2); // 0.16 to 0.34
+        
+        this.el.className = 'code-particle';
+        this.el.textContent = keyword;
+        this.el.style.fontSize = `${fontSize}px`;
+        this.el.style.opacity = opacity;
+        
+        if (container) {
+            container.appendChild(this.el);
         }
-        container.appendChild(this.el);
+        
         this.x = Math.random() * window.innerWidth;
         this.y = Math.random() * window.innerHeight;
-        this.speedY = Math.random() * 1.5 + 0.5;
+        this.speedY = Math.random() * 1.2 + 0.4;
+        this.speedX = (Math.random() - 0.5) * 0.3;
         this.repelRadius = 150;
     }
 
     update() {
         this.y += this.speedY;
+        this.x += this.speedX;
+        
         if (this.y > window.innerHeight + 50) {
             this.y = -50;
             this.x = Math.random() * window.innerWidth;
         }
+        if (this.x < -120) this.x = window.innerWidth + 50;
+        if (this.x > window.innerWidth + 120) this.x = -100;
+        
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -46,8 +65,10 @@ class Particle {
 
 function init() {
     particleArray.length = 0;
-    container.innerHTML = '';
-    for (let i = 0; i < shapeCount; i++) particleArray.push(new Particle());
+    if (container) {
+        container.innerHTML = '';
+        for (let i = 0; i < keywordCount; i++) particleArray.push(new Particle());
+    }
 }
 
 function animate() {
